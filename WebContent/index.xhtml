@@ -1,0 +1,71 @@
+<html xmlns = "http://www.w3.org/1999/xhtml" 
+   xmlns:h = "http://java.sun.com/jsf/html"
+   xmlns:f="http://java.sun.com/jsf/core">
+<head>
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous"/>
+
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" rel="stylesheet" type="text/css" />
+
+	<title>Partidas</title>   
+</head>
+
+<h:body>
+
+	<h:form>
+
+		<nav class="navbar navbar-expand-sm bg-dark">
+			
+		  <!-- Links -->
+		  <ul class="navbar-nav mr-auto">
+		  	<li>
+		    	<h3 style="color: white;">Gerenciador de Partidas</h3>
+		    </li>
+		  </ul>
+		  
+		  <ul class="navbar-nav loat-right">
+		  	<li>
+		    	<h:commandLink id="cadastrarPartida" value="Cadastrar Partida" action="#{partidaMBean.listarPartidas()}" styleClass="btn btn-success"/>
+		    </li>
+		  </ul>
+		
+		</nav>
+	
+		<div class="container my-3">
+			<div class="card">
+				<div class="card-header bg-primary">
+					<h3 style="color:white;">Lista de Partitas</h3>
+				</div>
+				<div class="card-body">
+					<h:dataTable id="listaPartidas" value="#{partidaMBean.partidas}" var="partida" styleClass="table">
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Título"/>
+							</f:facet>
+							<h:outputText value="#{partida.titulo}"/>
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Mapa"/>
+							</f:facet>
+							<h:outputText value="#{partida.nomeMapa}"/>
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Data"/>
+							</f:facet>
+							<h:outputText value="#{partida.data}" >
+								<f:convertDateTime pattern="dd/MM/yyyy"/>
+							</h:outputText>
+						</h:column>
+					</h:dataTable>
+				</div>
+			</div>
+		</div>
+	</h:form>
+
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+</h:body>
+</html>

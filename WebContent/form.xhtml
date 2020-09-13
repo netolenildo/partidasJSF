@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns = "http://www.w3.org/1999/xhtml" 
+   xmlns:h = "http://java.sun.com/jsf/html"
+   xmlns:f="http://java.sun.com/jsf/core">
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+	integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+	crossorigin="anonymous">
+
+<title>Partidas</title>
+</head>
+<h:body>
+	<h:form>
+		<nav class="navbar navbar-expand-sm bg-dark">
+			
+		  <!-- Links -->
+		  <ul class="navbar-nav mr-auto">
+		  	<li>
+		    	<h3 style="color: white;">Gerenciador de Partidas</h3>
+		    </li>
+		  </ul>
+		  
+		  <ul class="navbar-nav float-right">
+		  	<li>
+		    	<h:commandLink action="#{partidaMBean.listarPartidas}" value="Listar Partidas" styleClass="btn btn-success"/>
+		    </li>
+		  </ul>
+		
+		</nav>
+		
+		
+		<div class="container my-3">
+			<div class="card">
+			
+				<div class="card-header bg-primary">
+					<h3 style="color:white;">Cadastro de Partidas</h3>
+				</div>
+				<div class="card-body">
+					<form method="post">
+						<div class="input-group mb-3">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="titulo">Título</span>
+							</div>
+							<h:inputText value="#{partidaMBean.partida.titulo}" styleClass="form-control" required="true" requiredMessage="Por favor, informe o título."/>
+						</div>
+			
+						<div class="row">
+							<div class="col-3">
+								<div class="input-group mb-3">
+									<div class="input-group-prepend">
+										<label class="input-group-text" for="mapa">Mapa</label>
+									</div>
+									
+									<h:selectOneMenu value="#{partidaMBean.partida.mapa}" required="true" requiredMessage="Por favor, informe o mapa.">
+										<f:selectItem itemValue="0" itemLabel="--SELECIONE--"/>
+										<f:selectItems value="#{partidaMBean.mapas}" var="mapa" itemValue="mapa" itemLabel="#{partidaMBean.nomeMapa(mapa)}"/>
+									</h:selectOneMenu>
+								</div>
+							</div>
+							
+							<div class="col-3">
+								<div class="input-group mb-3">
+									<div class="input-group-prepend">
+										<span class="input-group-text" id="data">Data</span>
+									</div>
+									<h:inputText value="#{partidaMBean.partida.data}" required="true" requiredMessage="Por favor, informe a data.">
+										<f:convertDateTime type="date" pattern="dd/MM/yyyy"/>
+									</h:inputText>
+									<input type="date" class="form-control" aria-label="Data" aria-describedby="data" name=data>
+								</div>
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="col-12">
+								<h:commandButton action="#{partidaMBean.salvarPartida}" value="Salvar" styleClass="btn btn-primary"/>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</h:form>
+
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+</h:body>
+</html>
