@@ -1,5 +1,7 @@
 package br.com.partidasJSF.services;
 
+import java.util.List;
+
 import br.com.partidasJSF.daos.JogadorDAO;
 import br.com.partidasJSF.daos.PartidaDAO;
 import br.com.partidasJSF.models.Jogador;
@@ -17,7 +19,7 @@ public class JogadorService {
 	}
 	
 	public void save(Partida partida, Jogador jogador) throws Exception {
-		if(partida.getJogadores().size() > 10) {
+		if(partida.getJogadores().size() >= 10) {
 			throw new Exception("Limite de jogadores atingido.");
 		}
 		validate(jogador);
@@ -36,6 +38,10 @@ public class JogadorService {
 	
 	public Jogador findById(Long id) {
 		return jogadorDao.findById(id);
+	}
+	
+	public List<Jogador> findByPartida(Long id){
+		return jogadorDao.findByPartida(id);
 	}
 
 	public void validate(Jogador jogador) throws Exception {

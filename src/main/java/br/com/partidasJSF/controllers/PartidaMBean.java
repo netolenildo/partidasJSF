@@ -22,10 +22,10 @@ public class PartidaMBean {
 	private Partida partida;
 
 	private List<Partida> partidas;
+	
+	private List<Jogador> jogadores;
 
 	private Jogador jogador;
-
-	private List<Jogador> jogadores;
 
 	private PartidaService partidaService;
 
@@ -35,8 +35,8 @@ public class PartidaMBean {
 		partida = new Partida();
 		jogador = new Jogador();
 
-		partidas = new ArrayList<Partida>();
-		jogadores = new ArrayList<Jogador>();
+		partidas = new ArrayList<>();
+		jogadores = new ArrayList<>();
 
 		partidaService = new PartidaService();
 		jogadorService = new JogadorService();
@@ -47,7 +47,7 @@ public class PartidaMBean {
 	}
 
 	public String listarPartidas() {
-		partidas = new ArrayList<Partida>();
+		partidas = new ArrayList<>();
 
 		return "/index.jsf";
 	}
@@ -82,8 +82,10 @@ public class PartidaMBean {
 
 	public String visualizarPartida(Long id) {
 		partida = partidaService.findById(id);
-
-		jogadores = partida.getJogadores();
+		
+		jogadores = jogadorService.findByPartida(id);
+		
+		partida.setJogadores(jogadores);
 
 		jogador = new Jogador();
 
@@ -94,6 +96,8 @@ public class PartidaMBean {
 		try {
 			jogadorService.save(partida, jogador);
 
+			jogadores = jogadorService.findByPartida(partida.getId());
+			
 			addMensagemSucesso("Jogador cadastrado com sucesso.");
 			jogador = new Jogador();
 		} catch (Exception e) {
@@ -106,11 +110,13 @@ public class PartidaMBean {
 	public String removerJogador(Long id) throws Exception {
 		Jogador jogador = jogadorService.findById(id);
 		
+		jogadorService.delete(id);
+		
 		partida.getJogadores().remove(jogador);
 		
 		partidaService.update(partida);
 		
-		jogadorService.delete(id);
+		jogadores = jogadorService.findByPartida(partida.getId());
 		
 		addMensagemSucesso("Jogador removido com sucesso");
 
@@ -174,4 +180,5 @@ public class PartidaMBean {
 	public void setJogadores(List<Jogador> jogadores) {
 		this.jogadores = jogadores;
 	}
+
 }
