@@ -1,19 +1,18 @@
-<!DOCTYPE html>
 <html xmlns = "http://www.w3.org/1999/xhtml" 
    xmlns:h = "http://java.sun.com/jsf/html"
    xmlns:f="http://java.sun.com/jsf/core">
 <head>
 <!-- Required meta tags -->
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-<!-- Bootstrap CSS -->
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-	integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
-	crossorigin="anonymous">
-
-<title>Partidas</title>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+	
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet"
+		href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+		integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+		crossorigin="anonymous"/>
+	
+	<title>Partidas</title>
 </head>
 <h:body>
 	<h:form>
@@ -28,12 +27,13 @@
 		  
 		  <ul class="navbar-nav float-right">
 		  	<li>
-		    	<h:commandLink action="#{partidaMBean.listarPartidas}" value="Listar Partidas" styleClass="btn btn-success"/>
+		    	<h:commandLink value="Listar Partidas" action="#{partidaMBean.listarPartidas}" styleClass="btn btn-success" immediate="true"/>
 		    </li>
 		  </ul>
 		
 		</nav>
 		
+		<h:messages errorClass="alert alert-danger" infoClass="alert alert-success"/>
 		
 		<div class="container my-3">
 			<div class="card">
@@ -47,7 +47,7 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text" id="titulo">Título</span>
 							</div>
-							<h:inputText value="#{partidaMBean.partida.titulo}" styleClass="form-control" required="true" requiredMessage="Por favor, informe o título."/>
+							<h:inputText value="#{partidaMBean.partida.titulo}" styleClass="form-control"/>
 						</div>
 			
 						<div class="row">
@@ -57,9 +57,9 @@
 										<label class="input-group-text" for="mapa">Mapa</label>
 									</div>
 									
-									<h:selectOneMenu value="#{partidaMBean.partida.mapa}" required="true" requiredMessage="Por favor, informe o mapa.">
+									<h:selectOneMenu value="#{partidaMBean.partida.mapa}" styleClass="custom-select">
 										<f:selectItem itemValue="0" itemLabel="--SELECIONE--"/>
-										<f:selectItems value="#{partidaMBean.mapas}" var="mapa" itemValue="mapa" itemLabel="#{partidaMBean.nomeMapa(mapa)}"/>
+										<f:selectItems value="#{partidaMBean.mapas}" var="mapa" itemValue="mapa" itemLabel="#{partidaMBean.getNomeMapa(mapa)}"/>
 									</h:selectOneMenu>
 								</div>
 							</div>
@@ -69,17 +69,16 @@
 									<div class="input-group-prepend">
 										<span class="input-group-text" id="data">Data</span>
 									</div>
-									<h:inputText value="#{partidaMBean.partida.data}" required="true" requiredMessage="Por favor, informe a data.">
+									<h:inputText value="#{partidaMBean.partida.data}" styleClass="form-control">
 										<f:convertDateTime type="date" pattern="dd/MM/yyyy"/>
 									</h:inputText>
-									<input type="date" class="form-control" aria-label="Data" aria-describedby="data" name=data>
 								</div>
 							</div>
 						</div>
 						
 						<div class="row">
 							<div class="col-12">
-								<h:commandButton action="#{partidaMBean.salvarPartida}" value="Salvar" styleClass="btn btn-primary"/>
+								<h:commandButton action="#{partidaMBean.salvarPartida()}" value="Salvar" styleClass="btn btn-primary"/>
 							</div>
 						</div>
 					</form>

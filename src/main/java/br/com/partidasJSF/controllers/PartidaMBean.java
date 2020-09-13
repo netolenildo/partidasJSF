@@ -3,8 +3,8 @@ package br.com.partidasJSF.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.ManagedBean;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
@@ -20,116 +20,119 @@ import br.com.partidasJSF.services.PartidaService;
 public class PartidaMBean {
 
 	private Partida partida;
-	
+
 	private List<Partida> partidas;
-	
+
 	private Jogador jogador;
-	
+
 	private List<Jogador> jogadores;
-	
-	
+
 	private PartidaService partidaService;
-	
+
 	private JogadorService jogadorService;
-	
+
 	public PartidaMBean() {
 		partida = new Partida();
 		jogador = new Jogador();
-		
+
 		partidas = new ArrayList<Partida>();
 		jogadores = new ArrayList<Jogador>();
-		
+
 		partidaService = new PartidaService();
 		jogadorService = new JogadorService();
 	}
-	
+
+	public void carregarListaPartidas() {
+		partidas = partidaService.findAll();
+	}
+
 	public String listarPartidas() {
 		partidas = new ArrayList<Partida>();
-		
-		partidas = partidaService.findAll();
-		
-		return null;
+
+		return "/index.jsf";
 	}
-	
+
 	public String cadastrarPartida() {
 		partida = new Partida();
-		
-		return "";
+
+		return "/form.jsf";
 	}
-	
+
 	public String salvarPartida() throws Exception {
 		try {
 			partidaService.save(partida);
-			
+
 			addMensagemSucesso("Partida cadastrada com sucesso.");
-			
+
 			partida = new Partida();
-		}catch(Exception e) {
+		} catch (Exception e) {
 			addMensagemErro(e.getMessage());
 		}
-		
+
 		return null;
 	}
-	
-	public void removerPartida(Long id) {
+
+	public String removerPartida(Long id) {
 		partidaService.delete(id);
-		
+
 		addMensagemSucesso("Partida removida com sucesso.");
-		
-		return;
+
+		return null;
 	}
-	
+
 	public String visualizarPartida(Long id) {
 		partida = partidaService.findById(id);
-		
+
 		jogadores = partida.getJogadores();
-		
+
 		jogador = new Jogador();
-		
-		return "";
+
+		return "/detalhes.jsf";
 	}
-	
+
 	public String salvarJogador() {
 		try {
 			jogadorService.save(partida, jogador);
-			
+
 			addMensagemSucesso("jogador cadastrado com sucesso.");
 			jogador = new Jogador();
-		}catch (Exception e) {
+		} catch (Exception e) {
 			addMensagemErro(e.getMessage());
 		}
-		
+
 		return null;
 	}
-	
-	public void removerJogador(Long id) {
+
+	public String removerJogador(Long id) {
 		jogadorService.delete(id);
-		
-		return;
+
+		return null;
 	}
-	
-	public List<Integer> getMapas(){
+
+	public List<Integer> getMapas() {
 		return Mapa.getMapas();
 	}
-	
+
 	public String getNomeMapa(int mapa) {
 		return Mapa.getNome(mapa);
 	}
-	
-	public List<Integer> getPosicoes(){
+
+	public List<Integer> getPosicoes() {
 		return Posicao.posicoes();
 	}
-	
+
 	public String getNomePosicao(int posicao) {
 		return Posicao.getNome(posicao);
 	}
-	
+
 	public void addMensagemErro(String mensagem) {
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, null, mensagem));
+		FacesContext.getCurrentInstance().addMessage(null,
+				new FacesMessage(FacesMessage.SEVERITY_ERROR, null, mensagem));
 	}
-	
+
 	public void addMensagemSucesso(String mensagem) {
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, null, mensagem));
+		FacesContext.getCurrentInstance().addMessage(null,
+				new FacesMessage(FacesMessage.SEVERITY_INFO, null, mensagem));
 	}
 
 	public Partida getPartida() {

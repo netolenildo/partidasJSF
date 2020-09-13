@@ -57,7 +57,7 @@ public class PartidaDAO {
 	public List<Partida> findAll() {
         List<Partida> result = null;
         try {
-            Query query = em.createQuery("FROM Task ORDER BY id DESC");
+            Query query = em.createQuery("FROM Partida ORDER BY id DESC");
             result = query.getResultList();
         } catch (Exception e) {
             e.printStackTrace();

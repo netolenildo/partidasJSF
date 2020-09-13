@@ -1,17 +1,16 @@
-<!DOCTYPE html>
 <html xmlns = "http://www.w3.org/1999/xhtml" 
    xmlns:h = "http://java.sun.com/jsf/html"
    xmlns:f="http://java.sun.com/jsf/core">
 <head>
 	<!-- Required meta tags -->
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
 	
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet"
 		href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
 		integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
-		crossorigin="anonymous">
+		crossorigin="anonymous"/>
 		
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" rel="stylesheet" type="text/css" />
 
@@ -31,11 +30,13 @@
 		  </ul>
 		  <ul class="navbar-nav float-right">
 		  	<li>
-		    	<h:commandLink action="#{partidaMBean.listarPartidas}" value="Listar Partidas" styleClass="btn btn-success"/>
+		    	<h:commandLink value="Listar Partidas" action="#{partidaMBean.listarPartidas()}" styleClass="btn btn-success"/>
 		    </li>
 		  </ul>
 		</nav>
 		
+		
+		<h:messages errorClass="alert alert-danger" infoClass="alert alert-success"/>
 		
 		<div class="container my-3">
 			<div class="card">
@@ -79,9 +80,9 @@
 								<label class="input-group-text" for="posicao">Posição</label>
 							</div>
 							
-							<h:selectOneMenu value="#{partidaMBean.partida.mapa}" required="true" requiredMessage="Por favor, informe o mapa.">
+							<h:selectOneMenu value="#{partidaMBean.partida.mapa}" styleClass="custom-select">
 								<f:selectItem itemValue="0" itemLabel="--SELECIONE--"/>
-								<f:selectItems value="#{partidaMBean.posicoes}" var="pos" itemValue="pos" itemLabel="#{partidaMBean.nomePosicao(pos)}"/>
+								<f:selectItems value="#{partidaMBean.posicoes}" var="pos" itemValue="pos" itemLabel="#{partidaMBean.getNomePosicao(pos)}"/>
 							</h:selectOneMenu>
 							
 							<h:commandLink action="#{partidaMBean.salvarJogador}" title="Adicionar" styleClass="btn btn-primary"><i class="fas fa-plus"></i></h:commandLink>

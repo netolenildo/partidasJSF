@@ -14,7 +14,7 @@ public class HibernateUtil {
         if (emf == null) {
             try {
                 emf = Persistence
-                        .createEntityManagerFactory("SysTodo");
+                        .createEntityManagerFactory("partidasJSF");
             } catch (Exception ex) {
                 System.err.println("Initial SessionFactory creation failed."
                         + ex);
