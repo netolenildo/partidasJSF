@@ -34,6 +34,9 @@ public class JogadorService {
 		jogadorDao.delete(id);
 	}
 	
+	public Jogador findById(Long id) {
+		return jogadorDao.findById(id);
+	}
 
 	public void validate(Jogador jogador) throws Exception {
 		if(jogador.getNome() == null || jogador.getNome().isEmpty()) {

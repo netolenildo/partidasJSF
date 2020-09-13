@@ -19,6 +19,12 @@ public class PartidaService {
 		partidaDao.save(partida);
 	}
 	
+	public void update(Partida partida) throws Exception {
+		validate(partida);
+		
+		partidaDao.update(partida);
+	}
+	
 	public void delete(Long id) {
 		partidaDao.delete(id);
 	}

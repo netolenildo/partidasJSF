@@ -94,7 +94,7 @@ public class PartidaMBean {
 		try {
 			jogadorService.save(partida, jogador);
 
-			addMensagemSucesso("jogador cadastrado com sucesso.");
+			addMensagemSucesso("Jogador cadastrado com sucesso.");
 			jogador = new Jogador();
 		} catch (Exception e) {
 			addMensagemErro(e.getMessage());
@@ -103,8 +103,16 @@ public class PartidaMBean {
 		return null;
 	}
 
-	public String removerJogador(Long id) {
+	public String removerJogador(Long id) throws Exception {
+		Jogador jogador = jogadorService.findById(id);
+		
+		partida.getJogadores().remove(jogador);
+		
+		partidaService.update(partida);
+		
 		jogadorService.delete(id);
+		
+		addMensagemSucesso("Jogador removido com sucesso");
 
 		return null;
 	}
@@ -127,12 +135,12 @@ public class PartidaMBean {
 
 	public void addMensagemErro(String mensagem) {
 		FacesContext.getCurrentInstance().addMessage(null,
-				new FacesMessage(FacesMessage.SEVERITY_ERROR, null, mensagem));
+				new FacesMessage(FacesMessage.SEVERITY_ERROR, mensagem, ""));
 	}
 
 	public void addMensagemSucesso(String mensagem) {
 		FacesContext.getCurrentInstance().addMessage(null,
-				new FacesMessage(FacesMessage.SEVERITY_INFO, null, mensagem));
+				new FacesMessage(FacesMessage.SEVERITY_INFO, mensagem, ""));
 	}
 
 	public Partida getPartida() {

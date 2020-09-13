@@ -63,16 +63,15 @@
 		<br/>
 		
 		<div class="container my-3" >
-			<form method="post">
 				<div class="row">
-				<div class="col-6">
-					<div class="input-group mb-3">
-						<div class="input-group-prepend">
-							<span class="input-group-text" id="nome">Nome</span>
+					<div class="col-6">
+						<div class="input-group mb-3">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="nome">Nome</span>
+							</div>
+							<h:inputText value="#{partidaMBean.jogador.nome}" styleClass="form-control"/>
 						</div>
-						<h:inputText value="#{partidaMBean.jogador.nome}" styleClass="form-control"/>
 					</div>
-				</div>
 					
 					<div class="col-6" style="text-align: left;">
 						<div class="input-group mb-3">
@@ -80,9 +79,9 @@
 								<label class="input-group-text" for="posicao">Posição</label>
 							</div>
 							
-							<h:selectOneMenu value="#{partidaMBean.partida.mapa}" styleClass="custom-select">
+							<h:selectOneMenu value="#{partidaMBean.jogador.posicao}" styleClass="custom-select">
 								<f:selectItem itemValue="0" itemLabel="--SELECIONE--"/>
-								<f:selectItems value="#{partidaMBean.posicoes}" var="pos" itemValue="pos" itemLabel="#{partidaMBean.getNomePosicao(pos)}"/>
+								<f:selectItems value="#{partidaMBean.posicoes}" var="pos" itemValue="#{pos}" itemLabel="#{partidaMBean.getNomePosicao(pos)}"/>
 							</h:selectOneMenu>
 							
 							<h:commandLink action="#{partidaMBean.salvarJogador}" title="Adicionar" styleClass="btn btn-primary"><i class="fas fa-plus"></i></h:commandLink>
@@ -90,7 +89,6 @@
 						
 					</div>
 				</div>
-			</form>
 		</div>
 		
 		<h:panelGroup rendered="#{not empty partidaMBean.jogadores}">
@@ -112,6 +110,9 @@
 								<h:outputText value="Posição"/>
 							</f:facet>
 							<h:outputText value="#{jogador.nomePosicao}"/>
+						</h:column>
+						<h:column>
+							<h:commandLink action="#{partidaMBean.removerJogador(jogador.id)}" title="Remover"><i class="fas fa-trash"></i></h:commandLink>
 						</h:column>
 					</h:dataTable>
 					</div>

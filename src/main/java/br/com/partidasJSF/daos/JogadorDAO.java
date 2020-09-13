@@ -23,9 +23,6 @@ private EntityManager em;
 		try {
 			em.getTransaction().begin();
 			em.persist(jogador);
-			
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Partida salva com sucesso."));
-			
 			em.getTransaction().commit();
 		}catch(Exception e) {
 			em.getTransaction().rollback();
@@ -41,17 +38,6 @@ private EntityManager em;
         } catch (Exception e) {
             em.getTransaction().rollback();
         }
-    }
-	
-	public List<Jogador> findAll() {
-        List<Jogador> result = null;
-        try {
-            Query query = em.createQuery("FROM Jogador ORDER BY id DESC");
-            result = query.getResultList();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return result;
     }
 	
 	public Jogador findById(Long id) {

@@ -1,6 +1,7 @@
 <html xmlns = "http://www.w3.org/1999/xhtml" 
    xmlns:h = "http://java.sun.com/jsf/html"
-   xmlns:f="http://java.sun.com/jsf/core">
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 <head>
 <!-- Required meta tags -->
 	<meta charset="utf-8"/>
@@ -27,7 +28,7 @@
 		  
 		  <ul class="navbar-nav float-right">
 		  	<li>
-		    	<h:commandLink value="Listar Partidas" action="#{partidaMBean.listarPartidas}" styleClass="btn btn-success" immediate="true"/>
+		    	<h:commandLink value="Listar Partidas" action="#{partidaMBean.listarPartidas}" styleClass="btn btn-success"/>
 		    </li>
 		  </ul>
 		
@@ -42,46 +43,44 @@
 					<h3 style="color:white;">Cadastro de Partidas</h3>
 				</div>
 				<div class="card-body">
-					<form method="post">
-						<div class="input-group mb-3">
-							<div class="input-group-prepend">
-								<span class="input-group-text" id="titulo">Título</span>
-							</div>
-							<h:inputText value="#{partidaMBean.partida.titulo}" styleClass="form-control"/>
+					<div class="input-group mb-3">
+						<div class="input-group-prepend">
+							<span class="input-group-text" id="titulo">Título</span>
 						</div>
-			
-						<div class="row">
-							<div class="col-3">
-								<div class="input-group mb-3">
-									<div class="input-group-prepend">
-										<label class="input-group-text" for="mapa">Mapa</label>
-									</div>
-									
-									<h:selectOneMenu value="#{partidaMBean.partida.mapa}" styleClass="custom-select">
-										<f:selectItem itemValue="0" itemLabel="--SELECIONE--"/>
-										<f:selectItems value="#{partidaMBean.mapas}" var="mapa" itemValue="mapa" itemLabel="#{partidaMBean.getNomeMapa(mapa)}"/>
-									</h:selectOneMenu>
+						<h:inputText value="#{partidaMBean.partida.titulo}" styleClass="form-control"/>
+					</div>
+		
+					<div class="row">
+						<div class="col-3">
+							<div class="input-group mb-3">
+								<div class="input-group-prepend">
+									<label class="input-group-text" for="mapa">Mapa</label>
 								</div>
-							</div>
-							
-							<div class="col-3">
-								<div class="input-group mb-3">
-									<div class="input-group-prepend">
-										<span class="input-group-text" id="data">Data</span>
-									</div>
-									<h:inputText value="#{partidaMBean.partida.data}" styleClass="form-control">
-										<f:convertDateTime type="date" pattern="dd/MM/yyyy"/>
-									</h:inputText>
-								</div>
+								
+								<h:selectOneMenu value="#{partidaMBean.partida.mapa}" styleClass="custom-select">
+									<f:selectItem itemValue="0" itemLabel="--SELECIONE--"/>
+									<f:selectItems value="#{partidaMBean.mapas}" var="mapa" itemValue="#{mapa}" itemLabel="#{partidaMBean.getNomeMapa(mapa)}"/>
+								</h:selectOneMenu>
 							</div>
 						</div>
 						
-						<div class="row">
-							<div class="col-12">
-								<h:commandButton action="#{partidaMBean.salvarPartida()}" value="Salvar" styleClass="btn btn-primary"/>
+						<div class="col-3">
+							<div class="input-group mb-3">
+								<div class="input-group-prepend">
+									<span class="input-group-text" id="data">Data</span>
+								</div>
+								<h:inputText a:type="date" value="#{partidaMBean.partida.data}" styleClass="form-control" maxlength="10">
+									<f:convertDateTime pattern="yyyy-MM-dd"/>
+								</h:inputText>
 							</div>
 						</div>
-					</form>
+					</div>
+					
+					<div class="row">
+						<div class="col-12">
+							<h:commandButton action="#{partidaMBean.salvarPartida()}" value="Salvar" styleClass="btn btn-primary"/>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

@@ -23,9 +23,6 @@ public class PartidaDAO {
 		try {
 			em.getTransaction().begin();
 			em.persist(partida);
-			
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Partida salva com sucesso."));
-			
 			em.getTransaction().commit();
 		}catch(Exception e) {
 			em.getTransaction().rollback();
@@ -36,7 +33,6 @@ public class PartidaDAO {
 		try {
 			em.getTransaction().begin();
 			em.merge(partida);
-			
 			em.getTransaction().commit();
 		}catch(Exception e) {
 			em.getTransaction().rollback();
